@@ -3,7 +3,7 @@
 // Bagian 1: Variabel dan konstanta 
 $nim = "2622500045"; 
 $namaMahasiswa = "Rian"; 
-$programStudi = "SI"; 
+$programStudi = "Sistem Informasi"; 
 $tahunAkademik = "2026/2027"; 
 $semester = 1; 
 $ipk = 0.0; 
@@ -13,6 +13,8 @@ const NAMA_MATA_KULIAH = "Pemrograman Web Dasar";
 const PROFIL_GITHUB = "Rian"; 
 $batasSemester = 8; 
 $sisaSemester = $batasSemester - $semester;
+$semesterValid = $semester >= 1 && $semester <= $batasSemester; 
+$statusSemester = ($semesterValid && $statusAktif) ? "Sesuai rentang" : "Perlu diperiksa";
 ?> 
 <!doctype html>
 <html lang="id">
@@ -64,7 +66,9 @@ $sisaSemester = $batasSemester - $semester;
       <article> 
         <h3>Profil Singkat</h3> 
         <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p> 
-
+        <p>saya mahasiswa program studi  <?php echo $programStudi; ?>
+        <p>Status aktif: <?php echo $statusAktif ? 'Aktif' : 'Tidak Aktif'; ?></p>
+        <p>Pemeriksaan rentang semester: <?php echo $statusSemester; ?></p>
         <h3>Target Belajar</h3>
 
         <ol>
