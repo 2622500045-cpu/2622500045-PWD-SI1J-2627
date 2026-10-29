@@ -1,3 +1,17 @@
+<?php 
+// P6: PHP dasar dan pemrograman sisi peladen 
+// Bagian 1: Variabel dan konstanta 
+$nim = "2622500045"; 
+$namaMahasiswa = "Rian"; 
+$programStudi = "SI"; 
+$tahunAkademik = "2026/2027"; 
+$semester = 1; 
+$ipk = 0.0; 
+$statusAktif = true; 
+$catatanTambahan = null; 
+const NAMA_MATA_KULIAH = "Pemrograman Web Dasar"; 
+const PROFIL_GITHUB = "Rian"; 
+?> 
 <!doctype html>
 <html lang="id">
 
@@ -35,7 +49,7 @@
   <main>
     <section id="home">
       <h2>Selamat Datang</h2>
-      <p>Halo, saya Rian. Saya sedang mempelajari Pemrograman Web Dasar.</p>
+      <p>Halo, saya <?php echo $namaMahasiswa; ?>. Saya sedang mempelajari Pemrograman Web Dasar.</p>
 
       <img src="img/foto-profil.jpg" alt="Foto profil Rian" />
     </section>
@@ -62,7 +76,7 @@
 
       <p>
         Kunjungi
-        <a href="https://github.com/2622500045-cpu/2622500045-PWD-SI1J-2627">profil GitHub saya</a>.
+        <a href="https://github.com/<?php echo PROFIL_GITHUB; ?>/<?php echo $nim; ?>-PWD-SI1J-2627">profil GitHub saya</a>.
       </p>
 
       <form id="contactForm" action="index.html" method="get" novalidate>
