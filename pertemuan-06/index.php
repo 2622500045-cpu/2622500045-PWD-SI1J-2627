@@ -11,6 +11,8 @@ $statusAktif = true;
 $catatanTambahan = null; 
 const NAMA_MATA_KULIAH = "Pemrograman Web Dasar"; 
 const PROFIL_GITHUB = "Rian"; 
+$batasSemester = 8; 
+$sisaSemester = $batasSemester - $semester;
 ?> 
 <!doctype html>
 <html lang="id">
@@ -59,9 +61,9 @@ const PROFIL_GITHUB = "Rian";
     <section id="about">
       <h2>Tentang Saya</h2>
 
-      <article>
-        <h3>Profil Singkat</h3>
-        <p>Saya mahasiswa Program Studi Sistem Informasi.</p>
+      <article> 
+        <h3>Profil Singkat</h3> 
+        <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p> 
 
         <h3>Target Belajar</h3>
 
