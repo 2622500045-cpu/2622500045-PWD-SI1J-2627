@@ -77,7 +77,7 @@ switch ($programStudi) {
       <p>Halo, saya <strong><?php echo $namaMahasiswa; ?></strong>. Saya sedang mempelajari matakuliah 
       <strong><?php print NAMA_MATA_KULIAH; ?></strong> pada tahun akademik <?php echo $tahunAkademik; 
       ?>.</p> 
-
+ 
       <img src="img/foto-profil.jpg" alt="Foto profil Rian" />
     </section>
 
