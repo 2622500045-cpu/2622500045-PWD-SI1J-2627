@@ -90,18 +90,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
 // P6: PHP dasar dan pemrograman sisi peladen 
 // Bagian 1: Variabel dan konstanta 
-$nim = "2622500045"; 
-
-$namaMahasiswa = "Rian"; 
-$programStudi = "Sistem Informasi"; 
+$nim = "0344300002";
+$namaMahasiswa = "Cantika Putih"; 
+$programStudi = "SI"; 
 $tahunAkademik = "2026/2027"; 
-$semester = 1; 
-$ipk = 0.0; 
+$semester = 4; 
+$ipk = 3.75; 
 $statusAktif = true; 
 $catatanTambahan = null; 
  
 const NAMA_MATA_KULIAH = "Pemrograman Web Dasar"; 
-const PROFIL_GITHUB = "Rian"; 
+const PROFIL_GITHUB = "satpamal"; 
  
 // Bagian 2: Operator 
 $batasSemester = 8; 
@@ -118,14 +117,15 @@ if ($semester < 3) {
   $keteranganSemester = "Semester akhir"; 
 } 
  
-$namaProdi = ($programStudi == "Sistem Informasi") ? "Sistem Informasi" : (($programStudi == "Sistem Informasi") ? "Teknik Informatika" : "Lainnya"); 
+$namaProdi = ($programStudi == "SI") ? "Sistem Informasi" : (($programStudi == "TI") ? "Teknik 
+Informatika" : "Lainnya"); 
  
 // Bagian 4: Percabangan switch-case-default 
 switch ($programStudi) { 
-  case "Sistem Informasi": 
+  case "SI": 
     $fokusProgramStudi = "Sistem informasi dan proses bisnis"; 
     break; 
-  case "sistem informasi": 
+  case "TI": 
     $fokusProgramStudi = "Komputasi dan pengembangan perangkat lunak"; 
     break; 
   default: 
@@ -159,7 +159,6 @@ $prodi = $_SESSION['prodi'] ?? '';
 $minat = $_SESSION['minat'] ?? ''; 
 $pesan = $_SESSION['pesan'] ?? ''; 
 ?> 
-
 <!doctype html> 
 <html lang="id">
   <head> 
@@ -230,8 +229,8 @@ $catatanTambahan; ?></p>
                 echo "Memahami sintaks dasar PHP."; 
                 break; 
               case 2: 
-                echo "Menggunakan variabel dan konstanta.";
-                 break; 
+                echo "Menggunakan variabel dan konstanta."; 
+  break; 
               case 3: 
                 echo "Menerapkan operator dan percabangan."; 
                 break; 
@@ -301,7 +300,7 @@ $catatanTambahan; ?></p>
           <input class="input-form" type="email" id="email" name="email" 
 placeholder="nama@email.com" required /> 
         </div>
-         <div class="form-group"> 
+          <div class="form-group"> 
           <label for="semester">Semester</label><br /> 
  
           <input class="input-form" type="number" id="semester" name="semester" min="1" max="14" 
@@ -369,8 +368,8 @@ required />
         </p> 
  
         <p>Email: 
-          <?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>
-           </p> 
+          <?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?> 
+ </p> 
  
         <p>Semester: 
           <?= htmlspecialchars($semesterForm, ENT_QUOTES, 'UTF-8') ?> 
