@@ -411,7 +411,7 @@ required />
   </main> 
  
   <footer> 
-    <p>&copy; <?= date("Y") ?> <?php echo $Rian; ?> [<?= $26225 ?>]</p> 
+    <p>&copy; <?= date("Y") ?> <?php echo $namaMahasiswa; ?> [<?= $nim ?>]</p> 
   </footer> 
   <script src="script.js"></script> 
 </body> 

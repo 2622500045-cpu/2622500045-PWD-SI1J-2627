@@ -1,0 +1,637 @@
+Conversation Log
+PDF
+UTS PWD GASAL 20262027 - SI1J
+buatlah
+
+Proyek website Ujian Tengah Semester (UTS) Pemrograman Web Dasar - ISB Atma Luhur bertema Blog Pribadi telah selesai dibuat lengkap dengan semua kriteria penilaian (HTML, CSS, JavaScript, dan PHP).
+
+Struktur proyek disimpan di folder: 📁 C:\Users\RIAN01\.gemini\antigravity\scratch\NIM_NAMA_SI1A
+
+📋 Ringkasan Pemenuhan Kriteria Soal:
+No	Kriteria Penilaian	Implementasi & File	Skor
+1	Tata Letak / Layout Halaman	Layout persis skema soal: HEADER di atas full-width, NAVIGASI di kolom kiri, KONTEN di kolom kanan, dan FOOTER di bawah full-width (style.css).	10
+2	Bagian Header	Memuat logo vektor modern (logo.svg), judul nama website blog pribadi, slogan, serta widget jam digital & salam real-time via JavaScript.	10
+3	Bagian Navigasi (Tag List)	Menggunakan tag semantik <ul>, <li>, dan link <a> dengan penanda status menu aktif secara dinamis lewat PHP (index.php).	10
+4	Menu Beranda	Menampilkan kartu hobi interaktif (Web Dev, Fotografi, Musik), animasi hover CSS, multimedia video box, dan tabel jadwal kegiatan mingguan (beranda.php).	25
+5	Menu Profile	Menampilkan foto profil resmi (avatar.svg), tabel biodata lengkap (Nama, NIM, Jurusan Sistem Informasi ISB Atma Luhur), tabel riwayat pendidikan, dan progress bar keahlian (profile.php).	20
+6	Menu Pendaftaran	Formulir pendaftaran lengkap (text, email, tel, radio jenis kelamin, select prodi & minat hobi, checkbox, textarea motivasi), dilengkapi validasi JavaScript (script.js) dan pemrosesan data via PHP $_POST dengan sanitasi keamanan htmlspecialchars() yang langsung memunculkan kartu resume pendaftaran (pendaftaran.php).	20
+7	Menu Tambahan (Kreativitas)	Menambahkan menu Galeri Hobi (galeri.php) untuk nilai tambah.	Bonus
+8	Bagian Footer	Menampilkan format teks sesuai instruksi:
+©NIM_Nama Lengkap Anda_SI1J_ UTS Pemrograman Web Dasar.	5
+Total			100
+📂 Struktur Direktori Berkas:
+text
+NIM_NAMA_SI1A/
+├── index.php                 # File utama & master template layout (Header, Nav, Konten, Footer)
+├── README.md                 # Petunjuk instalasi & panduan pengumpulan
+├── css/
+│   └── style.css             # Desain styling CSS responsif (Flexbox, Grid & animasi)
+├── js/
+│   └── script.js             # Skrip jam digital, ucapan waktu, & validasi form
+├── assets/images/
+│   ├── logo.svg              # Logo Header Website
+│   ├── avatar.svg            # Foto/Avatar Profil Mahasiswa
+│   ├── hobby1.svg            # Gambar Hobi 1 (Web Development)
+│   ├── hobby2.svg            # Gambar Hobi 2 (Fotografi)
+│   └── hobby3.svg            # Gambar Hobi 3 (Musik & Audio)
+└── pages/
+    ├── beranda.php           # Halaman Beranda (Hobi, Video, & Tabel Jadwal)
+    ├── profile.php           # Halaman Profile (Biodata, Foto, & Riwayat Pendidikan)
+    ├── pendaftaran.php       # Halaman Form Pendaftaran & Pemrosesan PHP POST
+    └── galeri.php            # Halaman Galeri Foto Tambahan
+⚙️ Cara Mengubah Data Diri & Menjalankan Website:
+
+1
+
+Berikut panduan langkah demi langkah untuk menjalankan, menyesuaikan identitas diri, dan mengumpulkan tugas UTS ini:
+
+1. Cara Mengubah Data Diri (NIM & Nama Lengkap)
+
+Buka file index.php pada baris 15–20, lalu sesuaikan variabel berikut dengan identitas asli Anda:
+
+php
+$nimMahasiswa  = "2311500001";     // Ganti dengan NIM Anda
+$namaMahasiswa = "Rian Pratama";    // Ganti dengan Nama Lengkap Anda
+$kelasKelompok = "SI1J";            // Kelompok kelas Anda
+$namaWebsite   = "Rian's Life & Tech Journal"; // Nama website Anda
+
+NOTE
+
+Nilai ini secara otomatis akan tersinkronisasi ke judul website, header, dan teks footer:
+©NIM_Nama Lengkap Anda_SI1J_ UTS Pemrograman Web Dasar.
+
+Untuk menyesuaikan detail biodata (tanggal lahir, alamat, riwayat sekolah), Anda dapat mengedit file pages/profile.php.
+
+2. Cara Menjalankan Website
+Menggunakan XAMPP (Apache):
+Pindahkan folder NIM_NAMA_SI1A ke folder htdocs XAMPP Anda:
+text
+C:\xampp\htdocs\
+Ubah nama foldernya sesuai format NIM dan Nama Anda (contoh: 2311500001_RIAN_SI1A).
+Buka XAMPP Control Panel dan klik Start pada modul Apache.
+Buka browser dan akses alamat:
+text
+http://localhost/2311500001_RIAN_SI1A/
+3. Pengemasan & Pengumpulan Tugas (Ketentuan Soal)
+Ganti nama folder NIM_NAMA_SI1A dengan format: NIM_NAMA_SI1A (misal: 2311500001_RIAN_SI1A).
+Klik kanan pada folder tersebut:
+Pilih Send to 
+→
+→ Compressed (zipped) folder, atau
+Gunakan WinRAR: Add to "2311500001_RIAN_SI1A.zip" (atau .rar).
+Unggah file .zip / .rar tersebut ke portal e-learning kampus: 👉 elearning.atmaluhur.ac.id
+<?php 
+session_start(); 
+ 
+// P7: penggunaan POST 
+$nama = trim((string) ($_POST['nama'] ?? '')); 
+$email = trim((string) ($_POST['email'] ?? '')); 
+$semesterForm = trim((string) ($_POST['semester'] ?? '')); 
+$jenisPesan = trim((string) ($_POST['jenis_pesan'] ?? '')); 
+$prodi = trim((string) ($_POST['prodi'] ?? '')); 
+$pesan = trim((string) ($_POST['pesan'] ?? '')); 
+$tanggal = trim((string) ($_POST['tanggal'] ?? '')); 
+$minat = $_POST['minat'] ?? []; 
+ 
+$pesanKesalahan = ''; 
+ 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+  if (trim($nama ?? '') === '') { 
+    $pesanKesalahan .= 'Nama lengkap wajib diisi. '; 
+  } 
+ 
+  if (trim($email) === '') { 
+    $pesanKesalahan .= 'Email wajib diisi. '; 
+  } 
+   if (trim($semesterForm) === '') { 
+    $pesanKesalahan .= 'Semester wajib diisi. '; 
+  } 
+ 
+  if (trim($tanggal) === '') { 
+    $pesanKesalahan .= 'Tanggal kunjungan wajib diisi. '; 
+  } 
+ 
+  if ($jenisPesan === '') { 
+    $pesanKesalahan .= 'Jenis pesan wajib dipilih. '; 
+  } 
+ 
+  if ($prodi === '') { 
+    $pesanKesalahan .= 'Program studi wajib dipilih. '; 
+  } 
+ 
+  if (trim($pesan) === '') { 
+    $pesanKesalahan .= 'Pesan wajib diisi. '; 
+  } 
+ 
+  if (empty($minat)) { 
+    $pesanKesalahan .= 'Minat wajib dipilih minimal satu. '; 
+  } 
+ 
+  if (trim($semesterForm) !== '') { 
+    $semesterValid = filter_var( 
+      $semesterForm, 
+      FILTER_VALIDATE_INT 
+    ); 
+ 
+    if ( 
+      $semesterValid === false || 
+      $semesterValid < 1 || 
+      $semesterValid > 14 
+    ) { 
+      $pesanKesalahan .= 'Semester harus berupa bilangan bulat antara 1 dan 14. '; 
+    } 
+  } 
+ 
+  if (trim($email) !== '') { 
+    if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) { 
+      $pesanKesalahan .= 'Format email tidak valid. '; 
+    } 
+  } 
+ 
+  if (!in_array($jenisPesan, ['pertanyaan', 'saran'], true)) { 
+    $pesanKesalahan .= 'Jenis pesan tidak valid. '; 
+  } 
+ 
+  if (!in_array($prodi, ['SI', 'TI'], true)) { 
+    $pesanKesalahan .= 'Program studi tidak valid. '; 
+  } 
+ 
+  $minatDiizinkan = ['HTML', 'CSS']; 
+ 
+  if (!is_array($minat)) { 
+    $pesanKesalahan .= 'Format pilihan topik tidak valid. '; 
+  } else { 
+    foreach ($minat as $topik) { 
+      if (!in_array($topik, $minatDiizinkan, true)) { 
+        $pesanKesalahan .= 'Pilihan topik tidak valid. '; 
+        break; 
+      } 
+    } 
+  } 
+} 
+ 
+// P6: PHP dasar dan pemrograman sisi peladen 
+// Bagian 1: Variabel dan konstanta 
+$nim = "2622500045"; 
+
+$namaMahasiswa = "Rian"; 
+$programStudi = "Sistem Informasi"; 
+$tahunAkademik = "2026/2027"; 
+$semester = 1; 
+$ipk = 0.0; 
+$statusAktif = true; 
+$catatanTambahan = null; 
+ 
+const NAMA_MATA_KULIAH = "Pemrograman Web Dasar"; 
+const PROFIL_GITHUB = "Rian"; 
+ 
+// Bagian 2: Operator 
+$batasSemester = 8; 
+$sisaSemester = $batasSemester - $semester; 
+$semesterValid = $semester >= 1 && $semester <= $batasSemester; 
+$statusSemester = ($semesterValid && $statusAktif) ? "Sesuai rentang" : "Perlu diperiksa"; 
+ 
+// Bagian 3: Percabangan if-elseif-else 
+if ($semester < 3) { 
+  $keteranganSemester = "Semester awal"; 
+} elseif ($semester <= 6) { 
+  $keteranganSemester = "Semester menengah"; 
+} else { 
+  $keteranganSemester = "Semester akhir"; 
+} 
+ 
+$namaProdi = ($programStudi == "Sistem Informasi") ? "Sistem Informasi" : (($programStudi == "Sistem Informasi") ? "Teknik Informatika" : "Lainnya"); 
+ 
+// Bagian 4: Percabangan switch-case-default 
+switch ($programStudi) { 
+  case "Sistem Informasi": 
+    $fokusProgramStudi = "Sistem informasi dan proses bisnis"; 
+    break; 
+  case "sistem informasi": 
+    $fokusProgramStudi = "Komputasi dan pengembangan perangkat lunak"; 
+    break; 
+  default: 
+    $fokusProgramStudi = "Belum ditentukan"; 
+} 
+ 
+// P7 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+  $_SESSION['pesanKesalahan'] = $pesanKesalahan; 
+ 
+  $_SESSION['nama'] = $nama; 
+  $_SESSION['email'] = $email; 
+  $_SESSION['semester'] = $semesterForm; 
+  $_SESSION['tanggal'] = $tanggal; 
+  $_SESSION['jenis_pesan'] = $jenisPesan; 
+  $_SESSION['prodi'] = $prodi; 
+  $_SESSION['minat'] = $minat; 
+  $_SESSION['pesan'] = $pesan; 
+ 
+  header('Location: index.php'); 
+  exit; 
+} 
+ 
+$pesanKesalahan = $_SESSION['pesanKesalahan'] ?? ''; 
+$nama = $_SESSION['nama'] ?? ''; 
+$email = $_SESSION['email'] ?? ''; 
+$semesterForm = $_SESSION['semester'] ?? ''; 
+$tanggal = $_SESSION['tanggal'] ?? date("Y-m-d"); 
+$jenisPesan = $_SESSION['jenis_pesan'] ?? ''; 
+$prodi = $_SESSION['prodi'] ?? ''; 
+$minat = $_SESSION['minat'] ?? ''; 
+$pesan = $_SESSION['pesan'] ?? ''; 
+?> 
+
+<!doctype html> 
+<html lang="id">
+  <head> 
+  <meta charset="UTF-8" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+  <title>Profil Mahasiswa</title> 
+  <link rel="stylesheet" href="style.css" /> 
+</head> 
+ 
+<body> 
+  <header> 
+    <div class="header-top"> 
+      <h1>Profil Mahasiswa</h1> 
+ 
+      <button 
+        class="nav-toggle" 
+        id="navToggle" 
+        type="button" 
+        aria-label="Buka navigasi" 
+        aria-controls="navMenu" 
+        aria-expanded="false"> 
+        &#9776; 
+      </button> 
+    </div> 
+ 
+    <nav> 
+      <ul id="navMenu"> 
+        <li><a href="#home">Beranda</a></li> 
+        <li><a href="#about">Tentang</a></li> 
+        <li><a href="#contact">Kontak</a></li> 
+      </ul> 
+    </nav> 
+  </header> 
+ 
+  <main> 
+    <section id="home"> 
+      <h2>Selamat Datang</h2> 
+      <p>Halo, saya <strong><?php echo $namaMahasiswa; ?></strong>. Saya sedang mempelajari 
+matakuliah <strong><?php print NAMA_MATA_KULIAH; ?></strong> pada tahun akademik <?php echo 
+$tahunAkademik; ?>.</p> 
+ 
+      <img src="img/foto-profil.jpg" alt="Foto profil Nama Mahasiswa" /> 
+    </section> 
+ 
+    <section id="about"> 
+      <h2>Tentang Saya</h2> 
+ 
+      <article> 
+        <h3>Profil Singkat</h3> 
+        <p>Program Studi: <?php echo $namaProdi . " (" . $programStudi . ")"; ?></p> 
+        <p>Fokus program studi: <?php echo $fokusProgramStudi; ?></p> 
+        <p>Status mahasiswa: <?php echo $statusAktif ? "Aktif" : "Tidak aktif"; ?></p> 
+        <p>Semester: <?php echo $semester . " (" . $keteranganSemester . ")"; ?></p> 
+        <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p> 
+        <p>Pemeriksaan rentang semester: <?php echo $statusSemester; ?></p> 
+        <p>IPK: <?php echo number_format($ipk, 2, ',', '.'); ?></p> 
+        <p>Catatan tambahan: <?php echo $catatanTambahan === null ? "Belum ada" : 
+$catatanTambahan; ?></p> 
+ 
+        <h3>Target Belajar (Perulangan for)</h3> 
+        <ol> 
+          <?php 
+          // Perulangan for tanpa array; materi larik dibahas pada P9. 
+          for ($i = 1; $i <= 5; $i++) { 
+            echo "<li>Target belajar ke-" . $i . ": "; 
+            switch ($i) { 
+              case 1: 
+                echo "Memahami sintaks dasar PHP."; 
+                break; 
+              case 2: 
+                echo "Menggunakan variabel dan konstanta.";
+                 break; 
+              case 3: 
+                echo "Menerapkan operator dan percabangan."; 
+                break; 
+              case 4: 
+                echo "Menggunakan perulangan for dan while."; 
+                break; 
+              default: 
+                echo "Belum dipetakan"; 
+                break; 
+            } 
+            echo "</li>"; 
+          } 
+          ?> 
+        </ol> 
+ 
+        <h3>Semester (Perulangan while):</h3> 
+        <ol> 
+          <?php 
+          $nomorSemester = 1; 
+          while ($nomorSemester <= 3) { 
+            echo "<li>Semester " . $nomorSemester . "</li>"; 
+            $nomorSemester++; // operator penugasan 
+          } 
+          ?> 
+        </ol> 
+      </article> 
+    </section> 
+ 
+    <section id="contact"> 
+      <h2>Kontak</h2> 
+ 
+      <?php if ($pesanKesalahan !== ''): ?> 
+        <p class="form-feedback-error"> 
+          <?= htmlspecialchars($pesanKesalahan, ENT_QUOTES, 'UTF-8') ?> 
+        </p> 
+ 
+        <?php 
+        unset( 
+          $_SESSION['pesanKesalahan'] 
+        ); 
+        ?> 
+      <?php endif; ?> 
+ 
+      <p> 
+        Kunjungi 
+        <a target="_blank" href="https://github.com/<?= PROFIL_GITHUB ?>">profil GitHub saya</a>. 
+      </p> 
+ 
+      <form id="contactForm" action="index.php" method="post" novalidate> 
+        <div class="form-group"> 
+          <label for="nama">Nama Lengkap</label><br /> 
+ 
+          <input 
+            class="input-form" 
+            type="text" 
+            id="nama" 
+            name="nama" 
+            placeholder="Masukkan nama lengkap" 
+            minlength="3" 
+            maxlength="50" 
+            required /> 
+        </div> 
+ 
+        <div class="form-group"> 
+          <label for="email">Email</label><br /> 
+ 
+          <input class="input-form" type="email" id="email" name="email" 
+placeholder="nama@email.com" required /> 
+        </div>
+         <div class="form-group"> 
+          <label for="semester">Semester</label><br /> 
+ 
+          <input class="input-form" type="number" id="semester" name="semester" min="1" max="14" 
+required /> 
+        </div> 
+ 
+        <div class="form-group"> 
+          <label for="tanggal">Tanggal Kunjungan</label><br /> 
+ 
+          <input class="input-form" type="date" id="tanggal" name="tanggal" required /> 
+        </div> 
+ 
+        <div class="form-group"> 
+          <p>Jenis Pesan</p> 
+ 
+          <input type="radio" id="pertanyaan" name="jenis_pesan" value="pertanyaan" required /> 
+          <label for="pertanyaan">Pertanyaan</label> 
+ 
+          <input type="radio" id="saran" name="jenis_pesan" value="saran" /> 
+          <label for="saran">Saran</label> 
+        </div> 
+ 
+        <div class="form-group"> 
+          <p>Topik yang Diminati</p> 
+ 
+          <input type="checkbox" id="minat-html" name="minat[]" value="HTML" /> 
+          <label for="minat-html">HTML</label> 
+ 
+          <input type="checkbox" id="minat-css" name="minat[]" value="CSS" /> 
+          <label for="minat-css">CSS</label> 
+        </div> 
+ 
+        <div class="form-group"> 
+          <label for="prodi">Program Studi</label><br /> 
+ 
+          <select class="input-form" id="prodi" name="prodi" required> 
+            <option value="">-- Pilih Program Studi --</option> 
+            <option value="SI">Sistem Informasi</option> 
+            <option value="TI">Teknik Informatika</option> 
+          </select> 
+        </div> 
+ 
+        <div class="form-group"> 
+          <label for="pesan">Pesan</label><br /> 
+ 
+          <textarea 
+            class="input-form" 
+            id="pesan" 
+            name="pesan" 
+            maxlength="300" 
+            placeholder="Tulis pesan Anda" 
+            required></textarea> 
+        </div> 
+ 
+        <button type="submit">Kirim</button> 
+        <button type="reset">Batal</button> 
+        <p id="formFeedback"></p> 
+      </form> 
+ 
+      <?php if (!empty($nama)): ?> 
+        <h3>Data yang Diterima Peladen</h3> 
+ 
+        <p>Nama: 
+          <?= htmlspecialchars($nama, ENT_QUOTES, 'UTF-8') ?> 
+        </p> 
+ 
+        <p>Email: 
+          <?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>
+           </p> 
+ 
+        <p>Semester: 
+          <?= htmlspecialchars($semesterForm, ENT_QUOTES, 'UTF-8') ?> 
+        </p> 
+ 
+        <p>Tanggal kunjungan: 
+          <?= htmlspecialchars($tanggal, ENT_QUOTES, 'UTF-8') ?> 
+        </p> 
+ 
+        <p>Jenis pesan: 
+          <?= htmlspecialchars($jenisPesan, ENT_QUOTES, 'UTF-8') ?> 
+        </p> 
+ 
+        <p>Program studi: 
+          <?= htmlspecialchars($prodi, ENT_QUOTES, 'UTF-8') ?> 
+        </p> 
+ 
+        <p>Minat:</p> 
+ 
+        <?php if (is_array($minat) && count($minat) > 0): ?> 
+          <ul> 
+            <?php foreach ($minat as $topik): ?> 
+              <li> 
+                <?= htmlspecialchars((string) $topik, ENT_QUOTES, 'UTF-8') ?> 
+              </li> 
+            <?php endforeach; ?> 
+          </ul> 
+        <?php else: ?> 
+          <p>Tidak ada minat yang dipilih.</p> 
+        <?php endif; ?> 
+ 
+        <p>Pesan:</p> 
+ 
+        <p><?= nl2br(htmlspecialchars($pesan, ENT_QUOTES, 'UTF-8')) ?></p> 
+      <?php endif; ?> 
+ 
+    </section> 
+  </main> 
+ 
+  <footer> 
+    <p>&copy; <?= date("Y") ?> <?php echo $Rian; ?> [<?= $2622500045 ?>]</p> 
+  </footer> 
+  <script src="script.js"></script> 
+</body> 
+ 
+</html>
+
+Kode materi perkuliahan (P6: PHP Dasar, Percabangan, Perulangan dan P7: Pemrosesan Form POST, Validasi & Session) telah digabungkan secara utuh ke dalam proyek UTS Pemrograman Web Dasar Anda dengan data identitas asli:
+
+NIM: 2622500045
+Nama: Rian
+Program Studi: Sistem Informasi (SI)
+Kelompok Kelas: SI1J
+Mata Kuliah: Pemrograman Web Dasar
+
+Folder proyek Anda tersimpan di: 📁 C:\Users\RIAN01\.gemini\antigravity\scratch\NIM_NAMA_SI1A
+
+⚠️ Catatan Koreksi Bug pada Kode Cuplikan Anda:
+
+Pada cuplikan kode bagian footer sebelumnya:
+
+php
+<!-- SEBELUM (Ada 2 error PHP): -->
+<footer> 
+  <p>&copy; <?= date("Y") ?> <?php echo $Rian; ?> [<?= $2622500045 ?>]</p> 
+</footer>
+Variabel $Rian tidak terdefinisi (seharusnya $namaMahasiswa).
+Variabel $2622500045 menyebabkan Fatal Syntax Error di PHP karena nama variabel tidak boleh diawali angka. Seharusnya memanggil variabel $nim.
+Sesuai Ketentuan Soal Nomor 4, format tulisan footer yang wajib digunakan adalah:
+html
+©NIM_Nama Lengkap Anda_SI1J_ UTS Pemrograman Web Dasar.
+Sudah diperbaiki menjadi:
+php
+<footer class="site-footer">
+  <p class="copyright-text">
+    &copy;<?= htmlspecialchars($nim); ?>_<?= htmlspecialchars($namaMahasiswa); ?>_<?= htmlspecialchars($kelompok); ?>_ UTS Pemrograman Web Dasar.
+  </p>
+</footer>
+Output tampilan di browser:
+©2622500045_Rian_SI1J_ UTS Pemrograman Web Dasar.
+🌟 Integrasi Materi Kuliah (P6 & P7) ke Halaman UTS:
+1. Halaman Profile (pages/profile.php) – Materi P6:
+Variabel & Konstanta: $nim = "2622500045", $namaMahasiswa = "Rian", const NAMA_MATA_KULIAH, const PROFIL_GITHUB.
+Operator: Perhitungan sisa semester $sisaSemester = $batasSemester - $semester dan pengecekan rentang status $statusSemester.
+Percabangan if-elseif-else & switch-case: Menentukan keterangan semester awal/menengah/akhir serta fokus prodi Sistem Informasi.
+Perulangan for: Target belajar ke-1 s/d ke-5 (HTML, CSS, variabel PHP, percabangan, perulangan, form handling).
+Perulangan while: Rencana studi semester 1 s/d 3.
+Foto Profil & Biodata Lengkap.
+2. Halaman Pendaftaran & Kontak (pages/pendaftaran.php) – Materi P7:
+Formulir Interaktif: Input nama, email, semester (1–14), tanggal, radio jenis pesan (pertanyaan, saran, pendaftaran), select prodi (SI / TI), checkbox minat topik (HTML, CSS, JavaScript, PHP), dan textarea motivasi.
+Validasi Ganda:
+Sisi Klien (JavaScript): Validasi instan di script.js sebelum formulir dikirim.
+Sisi Peladen (PHP): Menggunakan filter_var(..., FILTER_VALIDATE_EMAIL) dan FILTER_VALIDATE_INT, pengecekan array in_array(), serta pola session PRG (Post/Redirect/Get).
+Tampilan Hasil: Menampilkan resume data yang diterima peladen secara rapi dan aman dengan htmlspecialchars().
+3. Halaman Beranda (pages/beranda.php) – Kriteria Soal (25 Point):
+Deskripsi dan visualisasi 3 hobi (Web Development, Fotografi Alam Bangka, Musik & Audio).
+Multimedia Video Player box simulasi.
+Tabel jadwal mingguan kegiatan hobi.
+4. Tata Letak / Layout Sesuai Skema (css/style.css):
+HEADER di atas full-width dengan logo & jam digital JavaScript.
+NAVIGASI di sebelah kiri menggunakan tag list <ul>, <li>, <a>.
+KONTEN di sebelah kanan dengan pemanggilan dinamis via PHP.
+FOOTER di bagian bawah full-width.
+📦 Panduan Pengumpulan Tugas ke E-Learning:
+Salin atau ganti nama folder project menjadi:
+text
+2622500045_RIAN_SI1A
+Kompres folder menjadi berkas ZIP/RAR:
+Klik kanan folder 
+→
+→ Send to 
+→
+→ Compressed (zipped) folder, menghasilkan file 2622500045_RIAN_SI1A.zip.
+Kumpulkan file ZIP tersebut ke portal kampus: 👉 elearning.atmaluhur.ac.id
+index php ganti ke index html
+
+Halaman utama proyek telah berhasil diubah menjadi index.html.
+
+Berkas tersimpan di: 📁 C:\Users\RIAN01\.gemini\antigravity\scratch\NIM_NAMA_SI1A\index.html
+
+✨ Keunggulan Versi index.html:
+Bisa Langsung Dibuka Tanpa XAMPP / Web Server:
+Anda cukup klik ganda (double-click) file index.html, website langsung terbuka sempurna di Google Chrome, Microsoft Edge, atau browser lainnya.
+Navigasi Tab Interaktif (Single Page Navigation):
+Menu Beranda, Profile, Pendaftaran, dan Galeri Hobi berpindah secara instan dan mulus menggunakan JavaScript tanpa perlu me-reload halaman.
+Validasi & Resume Formulir Otomatis:
+Saat mengisi form di menu Pendaftaran dan menekan tombol Kirim Formulir, JavaScript akan memvalidasi data dan langsung menampilkan kotak resume data yang rapi di layar.
+Kesesuaian Materi Perkuliahan (HTML, CSS, JS, PHP):
+HTML5: Struktur semantik (<header>, <aside>, <nav>, <main>, <footer>, <form>, <table>).
+CSS3: Layout persis skema soal UTS (Header atas, Navigasi kiri, Konten kanan, Footer bawah) dengan efek animasi transisi (css/style.css).
+JavaScript: Jam digital real-time, sapaan dinamis, navigasi tab, dan validasi form (js/script.js).
+PHP: Disediakan file pendukung backend proses.php yang menangani form via $_POST, filter_var, dan sanitasi data untuk memenuhi kriteria materi PHP pada poin 5 lembar soal.
+Identitas & Footer Sesuai Soal:
+Footer: ©2622500045_Rian_SI1J_ UTS Pemrograman Web Dasar.
+  margin-top: auto;
+  border-top: 3px solid var(--secondary-color);
+  font-size: 0.92rem;
+}
+footer.site-footer p {
+  margin: 5px 0;
+}
+footer.site-footer .copyright-text {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+footer.site-footer .sub-text {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+/* ================= 8. RESPONSIVE MEDIA QUERIES ================= */
+@media (max-width: 868px) {
+  .main-wrapper {
+    flex-direction: column;
+  }
+  aside.sidebar-nav {
+    width: 100%;
+  }
+  ul.nav-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  ul.nav-list li {
+    flex: 1;
+    min-width: 120px;
+  }
+  .header-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .header-brand {
+    flex-direction: column;
+  }
+  .header-widget {
+    text-align: center;
+  }
+}
+/* Tab Switching Animation for index.html */
+.content-section {
+  display: none;
+}
+.content-section.active {

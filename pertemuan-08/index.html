@@ -1,1 +1,583 @@
-# pertemuan-08
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rian's Life &amp; Tech Journal | UTS Pemrograman Web Dasar</title>
+  
+  <!-- CSS Stylesheet Sesuai Layout Soal -->
+  <link rel="stylesheet" href="css/style.css" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg" />
+</head>
+<body>
+  <!-- ================= 1. BAGIAN HEADER (10 Point) =================
+       Terdapat logo dan tulisan dengan nama website masing-masing
+  ==================================================================== -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="header-brand">
+        <!-- Logo Website -->
+        <a href="#beranda" onclick="switchPage('beranda', event)">
+          <img src="assets/images/logo.svg" alt="Logo Website Rian" class="logo" />
+        </a>
+        <div class="header-title">
+          <h1>Rian's Life &amp; Tech Journal</h1>
+          <p class="tagline">Eksplorasi Teknologi, Pemrograman Web, dan Hobi Kreatif</p>
+        </div>
+      </div>
+
+      <!-- Widget Jam Digital & Salam JavaScript Interaktif -->
+      <div class="header-widget">
+        <div id="greeting-text">Selamat Datang!</div>
+        <div id="digital-clock">00:00:00 WIB</div>
+      </div>
+    </div>
+  </header>
+  <!-- ================= 2. MAIN LAYOUT (NAVIGASI & KONTEN) =================
+       Layout: NAVIGASI (Kiri) | KONTEN (Kanan)
+  =========================================================================== -->
+  <div class="main-wrapper">
+    
+    <!-- === BAGIAN NAVIGASI (10 Point) ===
+         Menggunakan tag list (<ul>, <li>) dengan link menu
+    -->
+    <aside class="sidebar-nav">
+      <div class="nav-header">
+        <h3>🧭 Menu Navigasi</h3>
+      </div>
+      <!-- Menu Navigasi Menggunakan Tag List Sesuai Ketentuan Soal -->
+      <ul class="nav-list" id="nav-list">
+        <li>
+          <a href="#beranda" id="nav-beranda" class="active" onclick="switchPage('beranda', event)">
+            <span>🏠</span> Beranda
+          </a>
+        </li>
+        <li>
+          <a href="#profile" id="nav-profile" onclick="switchPage('profile', event)">
+            <span>👤</span> Profile
+          </a>
+        </li>
+        <li>
+          <a href="#pendaftaran" id="nav-pendaftaran" onclick="switchPage('pendaftaran', event)">
+            <span>📝</span> Pendaftaran
+          </a>
+        </li>
+        <li>
+          <a href="#galeri" id="nav-galeri" onclick="switchPage('galeri', event)">
+            <span>📸</span> Galeri Hobi
+          </a>
+        </li>
+      </ul>
+      <div class="nav-badge">
+        <p><strong>UTS Web Dasar</strong></p>
+        <p>ISB Atma Luhur</p>
+        <p>SI1J - S1 SI</p>
+      </div>
+    </aside>
+
+    <!-- === BAGIAN KONTEN (KANAN) ===
+         Memuat konten dinamis berdasarkan menu yang dipilih pengguna
+    -->
+    <main class="main-content">
+      
+      <!-- ================= HALAMAN 1: BERANDA (25 Point) ================= -->
+      <section id="page-beranda" class="content-section active">
+        <div class="page-title">
+          <h2>🏠 Beranda &amp; Aktivitas Hobi</h2>
+          <div class="breadcrumb">Navigasi / <span>Beranda</span></div>
+        </div>
+        <div class="welcome-hero">
+          <h3>Selamat Datang di Blog Pribadi Saya!</h3>
+          <p>
+            Website ini dibuat untuk memenuhi tugas Ujian Tengah Semester (UTS) mata kuliah 
+            <strong>Pemrograman Web Dasar</strong> di Program Studi Sistem Informasi, 
+            <strong>Institut Sains dan Bisnis (ISB) Atma Luhur</strong>. 
+            Di sini saya membagikan catatan perjalanan, hobi, serta portofolio seputar teknologi dan kehidupan sehari-hari.
+          </p>
+        </div>
+        <!-- Kartu Kegiatan dan Hobi -->
+        <h3 style="margin-bottom: 15px; color: var(--primary-color);">🎯 Hobi &amp; Minat Utama</h3>
+        <div class="hobby-grid">
+          <div class="hobby-card">
+            <img src="assets/images/hobby1.svg" alt="Web Development" />
+            <div class="hobby-card-body">
+              <h4>Web Development &amp; Coding</h4>
+              <p>
+                Mempelajari arsitektur website modern menggunakan HTML5 semantik, estetika CSS3 Grid/Flexbox, JavaScript murni, dan backend PHP.
+                 </p>
+              <span class="tag">#WebDev</span>
+              <span class="tag">#Frontend</span>
+            </div>
+          </div>
+          <div class="hobby-card">
+            <img src="assets/images/hobby2.svg" alt="Fotografi & Travel" />
+            <div class="hobby-card-body">
+              <h4>Fotografi &amp; Eksplorasi Alam</h4>
+              <p>
+                Mengabadikan panorama keindahan pantai dan alam Bangka Belitung saat akhir pekan untuk menghasilkan visual yang bermakna dan estetik.
+              </p>
+              <span class="tag">#Photography</span>
+              <span class="tag">#Bangka</span>
+            </div>
+          </div>
+          <div class="hobby-card">
+            <img src="assets/images/hobby3.svg" alt="Musik & Audio" />
+            <div class="hobby-card-body">
+              <h4>Musik &amp; Podcast Kreatif</h4>
+              <p>
+                Mendengarkan alunan musik akustik saat menulis kode program (coding session) serta menyimak informasi perkembangan teknologi masa kini.
+              </p>
+              <span class="tag">#Music</span>
+              <span class="tag">#Creative</span>
+            </div>
+          </div>
+        </div>
+
+         <!-- Multimedia Video Section Sesuai Ketentuan Soal -->
+        <div class="media-section">
+          <h4>🎬 Video Dokumentasi Kegiatan</h4>
+          <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">
+            Berikut adalah multimedia cuplikan kegiatan kreatif dan belajar mandiri:
+          </p>
+          <div class="video-container">
+            <div class="video-wrapper">
+              <div class="custom-video-box">
+                <div class="play-btn">▶️</div>
+                <p style="margin-top: 10px; font-weight: bold;">Pemrograman Web Dasar - ISB Atma Luhur</p>
+                <p style="font-size: 0.8rem; color: #aaa;">Klik tombol untuk melihat simulasi pemutaran video</p>
+              </div>
+            </div>
+            <div style="flex: 1; min-width: 250px;">
+              <h5 style="color: var(--primary-color); margin-bottom: 6px;">💡 Tips Belajar Web Dasar:</h5>
+              <ul style="padding-left: 20px; font-size: 0.88rem; color: #475569; line-height: 1.8;">
+                <li>Pahami kerangka struktur elemen dengan <strong>HTML</strong>.</li>
+                <li>Beri tata letak dan estetika warna dengan <strong>CSS</strong>.</li>
+                <li>Tambahkan logika interaktif dan validasi dengan <strong>JavaScript</strong>.</li>
+                <li>Kelola data dan server-side logic dengan <strong>PHP</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Jadwal Rutin Kegiatan Hobi Sesuai Ketentuan Soal -->
+        <h3 style="margin-bottom: 10px; color: var(--primary-color);">📅 Tabel Jadwal Kegiatan Mingguan</h3>
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Hari</th>
+              <th>Waktu (WIB)</th>
+              <th>Aktivitas / Kegiatan Hobi</th>
+              <th>Tempat / Platform</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Senin - Rabu</td>
+              <td>19.00 - 21.00</td>
+              <td>Latihan Coding HTML, CSS, JavaScript, PHP</td>
+              <td>Kamar Belajar / VS Code</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Kamis</td>
+              <td>16.30 - 18.00</td>
+              <td>Olahraga Futsal / Jogging Sore</td>
+              <td>Lapangan Olahraga</td>
+            </tr>
+            <tr>
+             <td>3</td>
+              <td>Sabtu</td>
+              <td>08.00 - 12.00</td>
+              <td>Hunting Foto &amp; Jelajah Wisata Bangka</td>
+              <td>Outdoor / Pantai Pasir Padi</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Minggu</td>
+              <td>14.00 - 17.00</td>
+              <td>Membaca Artikel Tech &amp; Diskusi Komunitas</td>
+              <td>Discord &amp; Cafe</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+       <!-- ================= HALAMAN 2: PROFILE (20 Point) ================= -->
+      <section id="page-profile" class="content-section">
+        <div class="page-title">
+          <h2>👤 Profil &amp; Biodata Mahasiswa</h2>
+          <div class="breadcrumb">Navigasi / <span>Profile</span></div>
+        </div>
+        <div class="profile-wrapper">
+          <!-- Sisi Kiri: Foto Profil & Info Ringkas -->
+          <div class="profile-card">
+            <img src="assets/images/avatar.svg" alt="Foto profil Rian" class="avatar" />
+            <h3>Rian</h3>
+            <span class="status-pill">Mahasiswa Aktif</span>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 5px;">
+              Institut Sains dan Bisnis (ISB) Atma Luhur
+            </p>
+            <div class="social-links">
+              <a target="_blank" href="https://github.com/Rian" title="Profil GitHub">git</a>
+              <a href="#" title="LinkedIn">in</a>
+              <a href="#" title="Instagram">ig</a>
+            </div>
+          </div>
+
+          <!-- Sisi Kanan: Detail Biodata & Materi P6 -->
+          <div class="profile-details">
+            <h3 style="color: var(--primary-color); margin-bottom: 12px;">📋 Biodata &amp; Informasi Akademik</h3>
+            
+            <table class="custom-table bio-table">
+              <tbody>
+                <tr>
+                  <th>Nama Lengkap</th>
+                  <td><strong>Rian</strong></td>
+                </tr>
+                <tr>
+                  <th>NIM</th>
+                  <td><strong>2622500045</strong></td>
+                </tr>
+                <tr>
+                  <th>Mata Kuliah</th>
+                  <td>Pemrograman Web Dasar</td>
+                </tr>
+                <tr>
+                  <th>Perguruan Tinggi</th>
+                  <td>Institut Sains dan Bisnis (ISB) Atma Luhur</td>
+                </tr>
+                <tr>
+                  <th>Program Studi</th>
+                  <td>S1 - Sistem Informasi (Fokus: Sistem informasi dan proses bisnis)</td>
+                </tr>
+                <tr>
+                  <th>Kelas / Kelompok</th>
+                  <td>SI1J (Semester Gasal 2026/2027)</td>
+                </tr>
+                <tr>
+                 <th>Semester Saat Ini</th>
+                  <td>Semester 1 (Semester awal)</td>
+                </tr>
+                <tr>
+                  <th>Sisa Semester</th>
+                  <td>7 Semester lagi (Batas: 8 Semester)</td>
+                </tr>
+                <tr>
+                  <th>Pemeriksaan Status</th>
+                  <td><span class="tag" style="background:#dcfce7; color:#15803d;">Sesuai rentang (Aktif)</span></td>
+                </tr>
+                <tr>
+                  <th>IPK Target</th>
+                  <td>4.00</td>
+                </tr>
+              </tbody>
+            </table>
+
+             <!-- Target Belajar Mahasiswa (Konsep Perulangan For) -->
+            <h3 style="color: var(--primary-color); margin: 25px 0 10px 0;">🎯 Target Belajar (Kurikulum Web Dasar)</h3>
+            <ol style="padding-left: 20px; font-size: 0.92rem; line-height: 1.8; color: #334155;">
+              <li><strong>Target belajar ke-1:</strong> Memahami sintaks dasar HTML5 dan CSS layouting semantik.</li>
+              <li><strong>Target belajar ke-2:</strong> Menggunakan variabel, tipe data, dan konstanta pemrograman web.</li>
+              <li><strong>Target belajar ke-3:</strong> Menerapkan operator, percabangan if-elseif-else, dan switch-case.</li>
+              <li><strong>Target belajar ke-4:</strong> Menggunakan perulangan for dan while dalam pemrosesan dinamis.</li>
+              <li><strong>Target belajar ke-5:</strong> Mengelola formulir POST, session, dan sanitasi input data web.</li>
+            </ol>
+            <!-- Rencana Semester (Konsep Perulangan While) -->
+            <h3 style="color: var(--primary-color); margin: 25px 0 10px 0;">📚 Rencana Perkuliahan Awal</h3>
+            <ol style="padding-left: 20px; font-size: 0.92rem; line-height: 1.8; color: #334155;">
+              <li>Semester 1 - Penguatan Fondasi Pemrograman Web Dasar, Algoritma, &amp; Database</li>
+              <li>Semester 2 - Pemrograman Berorientasi Objek &amp; Pengembangan Web Lanjutan</li>
+              <li>Semester 3 - Arsitektur Framework Web &amp; Rekayasa Perangkat Lunak</li>
+            </ol>
+            <!-- Keahlian Teknis -->
+            <h3 style="color: var(--primary-color); margin: 25px 0 15px 0;">💻 Kemampuan &amp; Keahlian Teknis</h3>
+            <div class="skill-bar">
+              <div class="skill-info">
+                <span>HTML5 &amp; Desain Web Semantik</span>
+                <span>90%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width: 90%;"></div>
+              </div>
+            </div>
+             <div class="skill-bar">
+              <div class="skill-info">
+                <span>CSS3 (Flexbox, Grid &amp; Responsif)</span>
+                <span>85%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width: 85%;"></div>
+              </div>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-info">
+                <span>JavaScript (DOM &amp; Form Validation)</span>
+                <span>80%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width: 80%;"></div>
+              </div>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-info">
+                <span>PHP Native (Dasar &amp; Form Handling)</span>
+                <span>85%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width: 85%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HALAMAN 3: PENDAFTARAN (20 Point) ================= -->
+      <section id="page-pendaftaran" class="content-section">
+        <div class="page-title">
+          <h2>📝 Form Pendaftaran &amp; Kontak Pengunjung</h2>
+          <div class="breadcrumb">Navigasi / <span>Pendaftaran</span></div>
+        </div>
+        <!-- Kartu Hasil Resume Data (Dinamis via JavaScript / PHP) -->
+        <div id="result-box" class="result-card" style="display: none;">
+          <h3>✅ Pendaftaran Berhasil Dikirim &amp; Divalidasi!</h3>
+          <p style="font-size: 0.9rem; color: #166534; margin-bottom: 15px;">
+            Terima kasih! Formulir Anda telah berhasil divalidasi dan diterima:
+          </p>
+          <table class="custom-table" style="margin-bottom: 15px;">
+            <tbody>
+              <tr>
+                <th style="width: 30%;">Nama Lengkap</th>
+                <td id="res-nama">-</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td id="res-email">-</td>
+              </tr>
+              <tr>
+                <th>Semester Mahasiswa</th>
+                <td id="res-semester">-</td>
+              </tr>
+              <tr>
+                 <th>Tanggal Kunjungan / Daftar</th>
+                <td id="res-tanggal">-</td>
+              </tr>
+              <tr>
+                <th>Jenis Pesan / Tujuan</th>
+                <td id="res-jenis-pesan">-</td>
+              </tr>
+              <tr>
+                <th>Program Studi</th>
+                <td id="res-prodi">-</td>
+              </tr>
+              <tr>
+                <th>Topik Minat yang Dipilih</th>
+                <td id="res-minat">-</td>
+              </tr>
+              <tr>
+                <th>Isi Pesan / Motivasi</th>
+                <td id="res-pesan">-</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="text-align: right;">
+            <button type="button" class="btn btn-secondary" onclick="resetFormView()">🔄 Isi Formulir Baru</button>
+          </div>
+        </div>
+
+        <!-- FORMULIR PENDAFTARAN -->
+        <div class="form-box" id="form-container">
+          <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">
+            Silakan lengkapi formulir pendaftaran komunitas web dan kirim pesan/pertanyaan kepada <strong>Rian</strong>.
+          </p>
+          <!-- Notifikasi Peringatan Error Sisi Klien -->
+          <div id="form-error-msg" class="form-alert"></div>
+          <form id="contactForm" action="proses.php" method="post" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nama" class="form-label">Nama Lengkap <span class="req">*</span></label>
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  id="nama" 
+                  name="nama" 
+                  placeholder="Masukkan nama lengkap" 
+                  minlength="3" 
+                  maxlength="50" 
+                  required />
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Email <span class="req">*</span></label>
+                <input 
+                  class="form-control" 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  placeholder="nama@email.com" 
+                  required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="semester" class="form-label">Semester Mahasiswa <span class="req">*</span></label>
+                <input 
+                  class="form-control" 
+                  type="number" 
+                  id="semester" 
+                  name="semester" 
+                  placeholder="1 - 14"
+                  min="1" 
+                  max="14" 
+                  required />
+              </div>
+              <div class="form-group">
+                <label for="tanggal" class="form-label">Tanggal Kunjungan / Daftar <span class="req">*</span></label>
+                <input 
+                  class="form-control" 
+                  type="date" 
+                  id="tanggal" 
+                  name="tanggal" 
+                  required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Jenis Pesan / Tujuan <span class="req">*</span></label>
+                <div class="radio-group">
+                  <label for="pertanyaan">
+                    <input type="radio" id="pertanyaan" name="jenis_pesan" value="pertanyaan" required />
+                    Pertanyaan
+                  </label>
+                  <label for="saran">
+                    <input type="radio" id="saran" name="jenis_pesan" value="saran" />
+                    Saran
+                  </label>
+                  <label for="pendaftaran">
+                    <input type="radio" id="pendaftaran" name="jenis_pesan" value="pendaftaran" checked />
+                    Pendaftaran Komunitas
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="prodi" class="form-label">Program Studi <span class="req">*</span></label>
+                <select class="form-control" id="prodi" name="prodi" required>
+                  <option value="">-- Pilih Program Studi --</option>
+                  <option value="SI" selected>Sistem Informasi (SI)</option>
+                  <option value="TI">Teknik Informatika (TI)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Topik Minat yang Diminati (Pilih minimal satu) <span class="req">*</span></label>
+              <div class="checkbox-group">
+                <label for="minat-html">
+                  <input type="checkbox" id="minat-html" name="minat[]" value="HTML" checked />
+                  HTML &amp; Struktur Web
+                </label>
+                <label for="minat-css">
+                  <input type="checkbox" id="minat-css" name="minat[]" value="CSS" checked />
+                  CSS &amp; Styling Layout
+                </label>
+                <label for="minat-js">
+                  <input type="checkbox" id="minat-js" name="minat[]" value="JavaScript" />
+                  JavaScript Interaktif
+                </label>
+                <label for="minat-php">
+                  <input type="checkbox" id="minat-php" name="minat[]" value="PHP" />
+                  PHP Backend &amp; Server-Side
+                </label>
+              </div>
+            </div>
+
+             <div class="form-group">
+              <label for="pesan" class="form-label">Pesan / Motivasi Pendaftaran <span class="req">*</span></label>
+              <textarea 
+                class="form-control" 
+                id="pesan" 
+                name="pesan" 
+                rows="4" 
+                maxlength="300" 
+                placeholder="Tuliskan pesan, pertanyaan, atau motivasi Anda..." 
+                required></textarea>
+              <small style="color: #64748b;">Maksimal 300 karakter.</small>
+            </div>
+            <div class="form-actions">
+              <button type="submit" name="submit_form" class="btn btn-primary">
+                🚀 Kirim Formulir
+              </button>
+              <button type="reset" class="btn btn-secondary">
+                🔄 Batal / Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+       <!-- ================= HALAMAN 4: GALERI (Menu Tambahan) ================= -->
+      <section id="page-galeri" class="content-section">
+        <div class="page-title">
+          <h2>📸 Galeri Karya &amp; Dokumentasi Hobi</h2>
+          <div class="breadcrumb">Navigasi / <span>Galeri</span></div>
+        </div>
+        <p style="margin-bottom: 20px; color: #64748b;">
+          Koleksi dokumentasi visual kegiatan hobi, mini project kodingan, dan eksplorasi fotografi Bangka Belitung.
+        </p>
+        <div class="hobby-grid">
+          <div class="hobby-card">
+            <img src="assets/images/hobby1.svg" alt="Project Web Dasar" />
+            <div class="hobby-card-body">
+              <h4>Mini Project Web Dasar</h4>
+              <p>Praktikum pembuatan struktur website responsif menggunakan CSS Grid &amp; Flexbox.</p>
+              <span class="tag">#SourceCode</span>
+            </div>
+          </div>
+          <div class="hobby-card">
+            <img src="assets/images/hobby2.svg" alt="Sunset Pantai Bangka" />
+            <div class="hobby-card-body">
+              <h4>Sunset di Pulau Bangka</h4>
+              <p>Dokumentasi keindahan alam pantai timur Sumatera dengan teknik fotografi landscape.</p>
+              <span class="tag">#ExploreBangka</span>
+            </div>
+          </div>
+           <div class="hobby-card">
+            <img src="assets/images/hobby3.svg" alt="Audio Editing & Podcast" />
+            <div class="hobby-card-body">
+              <h4>Setup Podcast &amp; Coding Music</h4>
+              <p>Eksplorasi sound editing dan aransemen musik santai pengiring produktivitas belajar.</p>
+              <span class="tag">#StudioSession</span>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-hero" style="margin-top: 20px; border-left-color: var(--secondary-color);">
+          <h4>📌 Catatan Mahasiswa:</h4>
+          <p style="font-size: 0.9rem;">
+            Galeri ini diperbarui secara berkala seiring berjalannya perkuliahan Pemrograman Web Dasar di ISB Atma Luhur.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ================= 3. BAGIAN FOOTER (5 Point) =================
+       Footer berisi tulisan persis seperti ketentuan soal:
+       ©NIM_Nama Lengkap Anda_SI1J_ UTS Pemrograman Web Dasar.
+  ================================================================= -->
+  <footer class="site-footer">
+    <p class="copyright-text">
+      &copy;2622500045_Rian_SI1J_ UTS Pemrograman Web Dasar.
+    </p>
+    <p class="sub-text">
+      Institut Sains dan Bisnis (ISB) Atma Luhur &bull; Tahun Akademik 2026/2027 Semester Gasal
+    </p>
+  </footer>
+  <!-- File JavaScript Interaktif -->
+  <script src="js/script.js"></script>
+</body>
+</html>
