@@ -11,9 +11,9 @@
  * ==================================================================================
  */
 
-// 1. DATA IDENTITAS MAHASISWA (Silakan sesuaikan data Anda di sini)
-$nimMahasiswa   = "2411500001";
-$namaMahasiswa  = "Rian Pratama";
+// 1. DATA IDENTITAS MAHASISWA
+$nimMahasiswa   = "2622500045";
+$namaMahasiswa  = "Rian";
 $kelasMahasiswa = "SI1J";
 
 // 2. NAVIGASI HALAMAN (Default: beranda)
