@@ -5,18 +5,18 @@
  */
 // Data Biodata Pribadi Mahasiswa
 $biodata = [
-  "Nama Lengkap"       => "Rian Pratama",
-  "NIM"                => "2411500001",
+  "Nama Lengkap"       => "Rian",
+  "NIM"                => "2622500045",
   "Program Studi"      => "S1 - Sistem Informasi",
   "Fakultas"           => "Teknologi Informasi",
   "Perguruan Tinggi"   => "Institut Sains dan Bisnis (ISB) Atma Luhur",
   "Kelas / Kelompok"   => "SI1J",
-  "Tempat, Tgl Lahir"  => "Pangkalpinang, 14 Mei 2005",
+  "Tempat, Tgl Lahir"  => "toboali 21-06-2005",
   "Jenis Kelamin"      => "Laki-laki",
   "Agama"              => "Islam",
   "Alamat"             => "Jl. Jenderal Sudirman No. 45, Pangkalpinang, Kep. Bangka Belitung",
   "Email Akademik"     => "rian.pratama@mahasiswa.atmaluhur.ac.id",
-  "No. Telepon / WA"   => "+62 812-3456-7890",
+  "No. Telepon / WA"   => "+62 838-8066-320",
   "Dosen Pengampu"     => "Elly Yanuarti, M.Kom"
 ];
 
