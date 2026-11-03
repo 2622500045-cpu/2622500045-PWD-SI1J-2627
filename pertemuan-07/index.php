@@ -95,12 +95,12 @@ $namaMahasiswa = "Rian";
 $programStudi = "Sistem Informasi"; 
 $tahunAkademik = "2026/2027"; 
 $semester = 4; 
-$ipk = 0,0; 
+$ipk = 0; 
 $statusAktif = true; 
 $catatanTambahan = null; 
  
 const NAMA_MATA_KULIAH = "Pemrograman Web Dasar"; 
-const PROFIL_GITHUB = "Rian"; 
+const PROFIL_GITHUB = "https://github.com/2622500045-cpu/2622500045-PWD-SI1J-2627"; 
  
 // Bagian 2: Operator 
 $batasSemester = 8; 
