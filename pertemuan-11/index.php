@@ -1,52 +1,10 @@
 <?php
 require_once("fungsi.php");
-require_once("koneksi.php"); // Memanggil jembatan koneksi tadi
+require_once("koneksi.php"); // P11: Memuat koneksi database
 
-// 1. Ambil data dari tabel kontak Anda
-$sql = "SELECT * FROM tbl_kontak_2622500045";
-$hasil = mysqli_query($koneksi, $sql);
-
-// 2. Cek apakah kueri berhasil
-if (!$hasil) {
-    die("Kueri SELECT gagal dijalankan.");
-}
-
-// 3. Masukkan datanya ke dalam wadah (array) $dataKontak
-$dataKontak = [];
-while ($baris = mysqli_fetch_assoc($hasil)) {
-    $dataKontak[] = $baris;
-}
-// P9: Memproses data formulir dan menyimpannya ke dalam session.
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nama = trim((string) ($_POST["nama"] ?? ""));
-    $email = trim((string) ($_POST["email"] ?? ""));
-    $semesterForm = trim((string) ($_POST["semester"] ?? ""));
-    $tanggal = trim((string) ($_POST["tanggal"] ?? ""));
-    $jenisPesan = trim((string) ($_POST["jenis_pesan"] ?? ""));
-    $minat = $_POST["minat"] ?? [];
-    $prodi = trim((string) ($_POST["prodi"] ?? ""));
-    $pesan = trim((string) ($_POST["pesan"] ?? ""));
-
-    // Checkbox dapat mengirimkan lebih dari satu nilai.
-    if (!is_array($minat)) {
-        $minat = [];
-    }
-
-    // Menyimpan semua data formulir ke dalam satu larik asosiatif di session.
-    $_SESSION["form_data"] = [
-        "nama" => $nama,
-        "email" => $email,
-        "semester" => $semesterForm,
-        "tanggal" => $tanggal,
-        "jenis_pesan" => $jenisPesan,
-        "minat" => $minat,
-        "prodi" => $prodi,
-        "pesan" => $pesan,
-    ];
-
-    // PRG: mengarahkan kembali ke halaman sebelum menghasilkan keluaran HTML.
-    header("Location: index.php#contact");
-    exit;
+// Pastikan session aktif sebelum ada keluaran HTML.
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
 // P6: PHP dasar dan pemrograman sisi peladen
@@ -61,7 +19,7 @@ $statusAktif = true;
 $catatanTambahan = null;
 
 const NAMA_MATA_KULIAH = "Pemrograman Web Dasar";
-const PROFIL_GITHUB = "2622500045-cpu";
+const PROFIL_GITHUB = "satpamal";
 
 // Bagian 2: Operator
 $batasSemester = 8;
@@ -94,6 +52,91 @@ switch ($programStudi) {
 
 // P9: Larik terindeks untuk menyimpan teknologi web yang dipelajari.
 $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
+
+// P11: Memproses formulir dan menyimpannya ke database (operasi CREATE).
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nama = trim((string) ($_POST["nama"] ?? ""));
+    $email = trim((string) ($_POST["email"] ?? ""));
+    $semesterForm = filter_var($_POST["semester"] ?? "", FILTER_VALIDATE_INT);
+    $tanggal = trim((string) ($_POST["tanggal"] ?? ""));
+    $jenisPesan = trim((string) ($_POST["jenis_pesan"] ?? ""));
+    $minat = $_POST["minat"] ?? [];
+    $prodi = trim((string) ($_POST["prodi"] ?? ""));
+    $pesan = trim((string) ($_POST["pesan"] ?? ""));
+
+    // Checkbox dapat mengirimkan lebih dari satu nilai.
+    if (!is_array($minat)) {
+        $minat = [];
+    }
+    $minatTeks = implode(", ", array_map("strval", $minat));
+
+    // Validasi sisi peladen.
+    $galat = [];
+    if (mb_strlen($nama) < 3 || mb_strlen($nama) > 50) {
+        $galat[] = "Nama harus 3-50 karakter.";
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $galat[] = "Format email tidak valid.";
+    }
+    if ($semesterForm === false || $semesterForm < 1 || $semesterForm > $batasSemester) {
+        $galat[] = "Semester harus 1-" . $batasSemester . ".";
+    }
+    if ($tanggal === "") {
+        $galat[] = "Tanggal wajib diisi.";
+    }
+    if (!in_array($jenisPesan, ["pertanyaan", "saran"], true)) {
+        $galat[] = "Jenis pesan tidak valid.";
+    }
+    if (!in_array($prodi, ["SI", "TI"], true)) {
+        $galat[] = "Program studi tidak valid.";
+    }
+    if ($pesan === "" || mb_strlen($pesan) > 300) {
+        $galat[] = "Pesan wajib diisi (maks. 300 karakter).";
+    }
+
+    if ($galat) {
+        $_SESSION["flash"] = implode(" ", $galat);
+    } else {
+        // Prepared statement mencegah SQL injection.
+        $stmt = mysqli_prepare(
+            $koneksi,
+            "INSERT INTO tbl_kontak_2622500045
+             (nama, email, semester, tanggal, jenis_pesan, minat, prodi, pesan)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+        mysqli_stmt_bind_param(
+            $stmt, "ssisssss",
+            $nama, $email, $semesterForm, $tanggal,
+            $jenisPesan, $minatTeks, $prodi, $pesan
+        );
+        $_SESSION["flash"] = mysqli_stmt_execute($stmt)
+            ? "Data berhasil disimpan."
+            : "Data gagal disimpan.";
+        mysqli_stmt_close($stmt);
+    }
+
+    // PRG: arahkan kembali sebelum ada keluaran HTML.
+    header("Location: index.php#contact");
+    exit;
+}
+
+// Ambil pesan flash (sekali tampil).
+$flash = $_SESSION["flash"] ?? "";
+unset($_SESSION["flash"]);
+
+// P11: Mengambil data kontak (operasi READ), dijalankan setelah INSERT.
+$sql = "SELECT * FROM tbl_kontak_2622500045 ORDER BY id DESC";
+$hasil = mysqli_query($koneksi, $sql);
+
+if (!$hasil) {
+    die("Kueri SELECT gagal dijalankan.");
+}
+
+$dataKontak = [];
+while ($baris = mysqli_fetch_assoc($hasil)) {
+    $dataKontak[] = $baris;
+}
+mysqli_free_result($hasil);
 ?>
 <!doctype html>
 <html lang="id">
@@ -125,12 +168,14 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
       </ul>
     </nav>
   </header>
+
   <main>
     <section id="home">
       <h2>Selamat Datang</h2>
       <p>Halo, saya <?= tebal($namaMahasiswa); ?>. Saya sedang mempelajari matakuliah <strong><?= bersihkan(NAMA_MATA_KULIAH); ?></strong> pada tahun akademik <?= bersihkan($tahunAkademik); ?>.</p>
-      <img src="img/foto-profil.jpg" alt="Foto profil Nama Mahasiswa" />
+      <img src="img/foto-profil.jpg" alt="Foto profil <?= bersihkan($namaMahasiswa); ?>" />
     </section>
+
     <section id="about">
       <h2>Tentang Saya</h2>
       <article>
@@ -162,6 +207,9 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
                 case 4:
                     echo "Menggunakan perulangan for dan while.";
                     break;
+                case 5:
+                    echo "Terhubung ke basis data MySQL.";
+                    break;
                 default:
                     echo "Belum dipetakan";
                     break;
@@ -171,7 +219,6 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
         ?>
         </ol>
 
-        <!-- P9: contoh penggunaan array terindeks -->
         <h3>Teknologi Web yang Dipelajari</h3>
         <p>
           Teknologi pertama yang dipelajari:
@@ -180,7 +227,7 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
         <p>Daftar teknologi yang dipelajari:</p>
         <ul>
           <?php foreach ($teknologiWeb as $teknologi): ?>
-          <li><?= bersihkan($teknologi); ?></li>
+            <li><?= bersihkan($teknologi); ?></li>
           <?php endforeach; ?>
         </ul>
 
@@ -203,23 +250,28 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
         Kunjungi
         <a target="_blank" href="https://github.com/<?= bersihkan(PROFIL_GITHUB); ?>">profil GitHub saya</a>.
       </p>
+
       <form id="contactForm" class="js-contact-form" data-validation="contact" action="index.php" method="post" novalidate>
         <div class="form-group">
           <label for="nama">Nama Lengkap</label><br />
           <input class="input-form" type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" minlength="3" maxlength="50" required />
         </div>
+
         <div class="form-group">
           <label for="email">Email</label><br />
           <input class="input-form" type="email" id="email" name="email" placeholder="nama@email.com" required />
         </div>
+
         <div class="form-group">
           <label for="semester">Semester</label><br />
-          <input class="input-form" type="number" id="semester" name="semester" min="1" max="14" required />
+          <input class="input-form" type="number" id="semester" name="semester" min="1" max="<?= (int) $batasSemester; ?>" required />
         </div>
+
         <div class="form-group">
           <label for="tanggal">Tanggal Kunjungan</label><br />
           <input class="input-form" type="date" id="tanggal" name="tanggal" required />
         </div>
+
         <div class="form-group">
           <p>Jenis Pesan</p>
           <input type="radio" id="pertanyaan" name="jenis_pesan" value="pertanyaan" required />
@@ -227,6 +279,7 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
           <input type="radio" id="saran" name="jenis_pesan" value="saran" />
           <label for="saran">Saran</label>
         </div>
+
         <div class="form-group">
           <p>Topik yang Diminati</p>
           <input type="checkbox" id="minat-html" name="minat[]" value="HTML" />
@@ -234,6 +287,7 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
           <input type="checkbox" id="minat-css" name="minat[]" value="CSS" />
           <label for="minat-css">CSS</label>
         </div>
+
         <div class="form-group">
           <label for="prodi">Program Studi</label><br />
           <select class="input-form" id="prodi" name="prodi" required>
@@ -242,64 +296,46 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
             <option value="TI">Teknik Informatika</option>
           </select>
         </div>
+
         <div class="form-group">
           <label for="pesan">Pesan</label><br />
           <textarea class="input-form" id="pesan" name="pesan" maxlength="300" placeholder="Tulis pesan Anda" required></textarea>
         </div>
+
         <button type="submit">Kirim</button>
         <button type="reset">Batal</button>
-        <p class="form-feedback" data-form-feedback aria-live="polite"></p>
+        <p class="form-feedback" data-form-feedback aria-live="polite"><?= bersihkan($flash); ?></p>
       </form>
 
-      <?php if (isset($_SESSION["form_data"])): ?>
-      <?php
-      $labelMap = [
-          "nama" => "Nama Lengkap",
-          "email" => "Email",
-          "semester" => "Semester",
-          "tanggal" => "Tanggal Kunjungan",
-          "jenis_pesan" => "Jenis Pesan",
-          "prodi" => "Program Studi",
-      ];
-      ?>
-      <?php
-require_once("fungsi.php");
-require_once("koneksi.php"); // Memanggil jembatan koneksi tadi
-
-// 1. Ambil data dari tabel kontak Anda
-$sql = "SELECT * FROM tbl_kontak_2622500045";
-$hasil = mysqli_query($koneksi, $sql);
-
-// 2. Cek apakah kueri berhasil
-if (!$hasil) {
-    die("Kueri SELECT gagal dijalankan.");
-}
-
-// 3. Masukkan datanya ke dalam wadah (array) $dataKontak
-$dataKontak = [];
-while ($baris = mysqli_fetch_assoc($hasil)) {
-    $dataKontak[] = $baris;
-}
-
-        <p><strong>Topik yang Diminati:</strong></p>
-        <?php if (count($_SESSION["form_data"]["minat"]) > 0): ?>
-        <ul>
-          <?php foreach ($_SESSION["form_data"]["minat"] as $topik): ?>
-          <li><?= bersihkan($topik); ?></li>
+      <!-- P11: Menampilkan Data Kontak dari Basis Data MySQL -->
+      <article id="hasilKontak" class="submission-result" aria-live="polite">
+        <h3>Data Kontak dari Basis Data</h3>
+        <?php if (count($dataKontak) > 0): ?>
+          <!-- Perulangan foreach untuk menampilkan seluruh data kontak -->
+          <?php foreach ($dataKontak as $data): ?>
+            <section>
+              <p><strong>ID:</strong> <?= bersihkan($data["id"]); ?></p>
+              <p><strong>Nama:</strong> <?= bersihkan($data["nama"]); ?></p>
+              <p><strong>Email:</strong> <?= bersihkan($data["email"]); ?></p>
+              <p><strong>Semester:</strong> <?= bersihkan($data["semester"]); ?></p>
+              <p><strong>Tanggal Kunjungan:</strong> <?= bersihkan($data["tanggal"]); ?></p>
+              <p><strong>Jenis Pesan:</strong> <?= bersihkan($data["jenis_pesan"]); ?></p>
+              <p><strong>Topik yang Diminati:</strong> <?= bersihkan($data["minat"]); ?></p>
+              <p><strong>Program Studi:</strong> <?= bersihkan($data["prodi"]); ?></p>
+              <p><strong>Pesan:</strong> <?= nl2br(bersihkan($data["pesan"])); ?></p>
+            </section>
           <?php endforeach; ?>
-        </ul>
         <?php else: ?>
-        <p>Belum ada topik yang dipilih.</p>
+          <p>Belum ada data kontak yang tersimpan.</p>
         <?php endif; ?>
-
-        <p><strong>Pesan:</strong> <?= nl2br(bersihkan($_SESSION["form_data"]["pesan"])); ?></p>
       </article>
-      <?php endif; ?>
     </section>
   </main>
+
   <footer>
     <p>&copy; <?= date("Y"); ?> <?= bersihkan($namaMahasiswa); ?> [<?= bersihkan($nim); ?>]</p>
   </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
