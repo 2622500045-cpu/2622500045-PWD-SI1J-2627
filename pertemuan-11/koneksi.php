@@ -3,7 +3,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db   = "NAMA_DATABASE_KAMU"; // <-- ganti dengan nama database di phpMyAdmin/HeidiSQL
+$db   = "db_pertemuan11"; // harus sama dengan nama database di database.sql
 
 mysqli_report(MYSQLI_REPORT_OFF);
 $koneksi = mysqli_connect($host, $user, $pass, $db);
