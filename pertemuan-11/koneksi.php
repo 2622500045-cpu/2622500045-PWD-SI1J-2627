@@ -1,15 +1,15 @@
 <?php
-// Konfigurasi koneksi ke basis data MySQL.
+// Pengaturan bawaan Laragon: user root tanpa password.
 $host = "localhost";
 $user = "root";
-$password = "";
-$database = "db_pwd_2622500045";
+$pass = "";
+$db   = "NAMA_DATABASE_KAMU"; // <-- ganti dengan nama database di phpMyAdmin/HeidiSQL
 
-// Membuat koneksi PHP dengan MySQL menggunakan MySQLi.
 mysqli_report(MYSQLI_REPORT_OFF);
-$koneksi = mysqli_connect($host, $user, $password, $database);
+$koneksi = mysqli_connect($host, $user, $pass, $db);
 
-// Memeriksa keberhasilan koneksi.
 if (!$koneksi) {
-    die("Koneksi ke basis data gagal.");
+    die("Koneksi database gagal: " . mysqli_connect_error());
 }
+
+mysqli_set_charset($koneksi, "utf8mb4");
